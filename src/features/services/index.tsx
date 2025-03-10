@@ -53,7 +53,7 @@ export default function ServicesPage() {
               <div className="space-y-4 mb-8">
                 {getServiceFeatures(service.title).map((feature, idx) => (
                   <div key={idx} className="flex items-start">
-                    <Check className="h-6 w-6 text-[#c5ff6b] mt-1 flex-shrink-0" />
+                    <Check className="h-6 w-6 mt-1 flex-shrink-0" />
                     <p className="ml-3 text-gray-700">{feature}</p>
                   </div>
                 ))}

@@ -127,7 +127,7 @@ export default function ContactPage() {
               <h2 className={`text-3xl font-bold mb-6 ${cormorant.className}`}>Contact Information</h2>
               <div className="space-y-4">
                 <div className="flex items-start">
-                  <MapPin className="h-6 w-6 text-[#c5ff6b] mt-1" />
+                  <MapPin className="h-6 w-6 text-black mt-1" />
                   <div className="ml-4">
                     <h3 className="font-medium">Main Location</h3>
                     <p className="text-gray-600">
@@ -139,7 +139,7 @@ export default function ContactPage() {
                 </div>
 
                 <div className="flex items-start">
-                  <Phone className="h-6 w-6 text-[#c5ff6b] mt-1" />
+                  <Phone className="h-6 w-6 mt-1" />
                   <div className="ml-4">
                     <h3 className="font-medium">Phone</h3>
                     <p className="text-gray-600">+1 (555) 123-4567</p>
@@ -147,7 +147,7 @@ export default function ContactPage() {
                 </div>
 
                 <div className="flex items-start">
-                  <Mail className="h-6 w-6 text-[#c5ff6b] mt-1" />
+                  <Mail className="h-6 w-6 mt-1" />
                   <div className="ml-4">
                     <h3 className="font-medium">Email</h3>
                     <p className="text-gray-600">hello@cowork.com</p>
@@ -155,7 +155,7 @@ export default function ContactPage() {
                 </div>
 
                 <div className="flex items-start">
-                  <Clock className="h-6 w-6 text-[#c5ff6b] mt-1" />
+                  <Clock className="h-6 w-6 mt-1" />
                   <div className="ml-4">
                     <h3 className="font-medium">Hours</h3>
                     <p className="text-gray-600">
