@@ -1,9 +1,43 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
+import { MapPin, Mail, Clock } from "lucide-react";
 import { cormorant, montserrat } from "@/app/font";
 
 export default function ContactPage() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch("https://formspree.io/f/xqevlpre", {
+        method: "POST",
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+      
+      if (response.ok) {
+        toast.success("Message sent successfully!");
+        form.reset();
+      } else {
+        toast.error("Failed to send message. Please try again.");
+      }
+    } catch (error) {
+      toast.error("An error occurred. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <main className={`min-h-screen flex flex-col ${montserrat.className}`}>
       {/* Hero Section */}
@@ -29,7 +63,7 @@ export default function ContactPage() {
           {/* Contact Form */}
           <div className="bg-white p-8 rounded-2xl shadow-sm">
             <h2 className="text-2xl font-bold mb-6">Send us a message</h2>
-            <form className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label
@@ -41,6 +75,7 @@ export default function ContactPage() {
                   <input
                     type="text"
                     id="firstName"
+                    name="firstName"
                     className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#c5ff6b] focus:border-transparent"
                     required
                   />
@@ -55,6 +90,7 @@ export default function ContactPage() {
                   <input
                     type="text"
                     id="lastName"
+                    name="lastName"
                     className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#c5ff6b] focus:border-transparent"
                     required
                   />
@@ -71,6 +107,7 @@ export default function ContactPage() {
                 <input
                   type="email"
                   id="email"
+                  name="email"
                   className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#c5ff6b] focus:border-transparent"
                   required
                 />
@@ -85,6 +122,7 @@ export default function ContactPage() {
                 </label>
                 <select
                   id="subject"
+                  name="subject"
                   className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#c5ff6b] focus:border-transparent"
                   required
                 >
@@ -106,6 +144,7 @@ export default function ContactPage() {
                 </label>
                 <textarea
                   id="message"
+                  name="message"
                   rows={5}
                   className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#c5ff6b] focus:border-transparent"
                   required
@@ -114,9 +153,12 @@ export default function ContactPage() {
 
               <button
                 type="submit"
-                className="w-full bg-black text-white rounded-full py-3 font-medium hover:bg-gray-800 transition-colors"
+                disabled={isSubmitting}
+                className={`w-full bg-black text-white rounded-full py-3 font-medium transition-colors ${
+                  isSubmitting ? "opacity-70 cursor-not-allowed" : "hover:bg-gray-800"
+                }`}
               >
-                Send Message
+                {isSubmitting ? "Sending..." : "Send Message"}
               </button>
             </form>
           </div>
@@ -131,18 +173,8 @@ export default function ContactPage() {
                   <div className="ml-4">
                     <h3 className="font-medium">Main Location</h3>
                     <p className="text-gray-600">
-                      123 Workspace Avenue, Suite 500
-                      <br />
-                      San Francisco, CA 94107
+                      Mergangsan, Yogyakarta
                     </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start">
-                  <Phone className="h-6 w-6 mt-1" />
-                  <div className="ml-4">
-                    <h3 className="font-medium">Phone</h3>
-                    <p className="text-gray-600">+1 (555) 123-4567</p>
                   </div>
                 </div>
 
@@ -150,7 +182,7 @@ export default function ContactPage() {
                   <Mail className="h-6 w-6 mt-1" />
                   <div className="ml-4">
                     <h3 className="font-medium">Email</h3>
-                    <p className="text-gray-600">hello@cowork.com</p>
+                    <p className="text-gray-600">hibbanhfw@gmail.com</p>
                   </div>
                 </div>
 
@@ -161,9 +193,7 @@ export default function ContactPage() {
                     <p className="text-gray-600">
                       Monday - Friday: 8am - 8pm
                       <br />
-                      Saturday: 9am - 5pm
-                      <br />
-                      Sunday: Closed
+                      Saturday - Sunday: 7am - 10pm
                     </p>
                   </div>
                 </div>

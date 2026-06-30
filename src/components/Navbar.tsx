@@ -28,14 +28,8 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    if (currentPath !== "/" && currentPath !== "/get-in-touch") {
-      setColor("#ffffff");
-      if (isScrolled) {
-        setColor("#4B5563");
-      }
-    } else {
-      setColor("#4B5563");
-    }
+    // Ensuring the text is always visible against light backgrounds (or glassmorphism)
+    setColor("#4B5563");
   }, [currentPath, isScrolled]);
 
   return (
