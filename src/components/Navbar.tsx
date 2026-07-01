@@ -28,7 +28,6 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    // Ensuring the text is always visible against light backgrounds (or glassmorphism)
     setColor("#4B5563");
   }, [currentPath, isScrolled]);
 
@@ -36,7 +35,7 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         isScrolled || isOpen
-          ? "bg-white/70 backdrop-blur-lg shadow-sm"
+          ? "bg-white/40 backdrop-blur-lg shadow-sm"
           : "bg-transparent"
       }`}
     >
@@ -46,10 +45,21 @@ const Navbar = () => {
           <div className="flex items-center">
             <Link
               href="/"
-              className="text-2xl font-semibold flex items-center gap-2"
-              // style={{ color: String(color) }}
+              className="text-2xl font-semibold flex items-center gap-2 group"
+              style={{
+                color: String(color),
+                textShadow: "0 0 4px rgba(255,255,255,1), 0 0 12px rgba(255,255,255,0.9), 0 0 20px rgba(255,255,255,0.7)"
+              }}
             >
-              <h1 className={`${cormorant.className} font-extrabold` }>Co-Labs</h1>
+              <div className="flex flex-col">
+                <h1 className={`${cormorant.className} font-extrabold` }>Co-Labs</h1>
+                <span
+                  className={`block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 mt-0.5 bg-current`}
+                  style={{ 
+                    boxShadow: "0 0 3px rgba(255,255,255,1), 0 0 10px rgba(255,255,255,0.9)"
+                  }}
+                ></span>
+              </div>
             </Link>
           </div>
 
@@ -60,12 +70,18 @@ const Navbar = () => {
                 key={item.label}
                 href={item.href}
                 className={`${montserrat.className} group text-black transition duration-300 px-3 py-2 rounded-md text-sm font-semibold`}
-                style={{ color: String(color) }}
+                style={{ 
+                  color: String(color),
+                  textShadow: "0 0 4px rgba(255,255,255,1), 0 0 12px rgba(255,255,255,0.9), 0 0 20px rgba(255,255,255,0.7)"
+                }}
               >
                 {item.label}
                 <span
-                  className={`block max-w-0 group-hover:max-w-full text-black transition-all duration-500 h-0.5`}
-                  style={{ backgroundColor: String(color) }}
+                  className={`block max-w-0 group-hover:max-w-full text-black transition-all duration-500 h-0.5 mt-0.5`}
+                  style={{ 
+                    backgroundColor: String(color),
+                    boxShadow: "0 0 3px rgba(255,255,255,1), 0 0 10px rgba(255,255,255,0.9)"
+                  }}
                 ></span>
               </Link>
             ))}
